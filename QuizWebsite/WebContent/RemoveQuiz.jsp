@@ -15,6 +15,10 @@ int quizId = Integer.parseInt(request.getParameter("id"));
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="/QuizWebsite/Home.css" type="text/css">
+>>>>>>> c602345245478d9db7b574383809cd675cabb8df
 <title>Remove Quiz</title>
 </head>
 <body>

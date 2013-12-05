@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 public class Admin {
 
@@ -103,4 +105,105 @@ public class Admin {
 			return false;
 		} 
 	}
+
+	
+	static public boolean promoteUser(int userId, DBConnection dbCon) {
+		try {
+			String selectSQL = "UPDATE users SET isAdmin=true where id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	
+	static public boolean removeAdmin(int userId, DBConnection dbCon) {
+		try {
+			String selectSQL = "UPDATE users SET isAdmin=false where id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	
+	static public class AdminAnnounceInfo {
+		public int adminId;
+		public String content;
+		public int announceId;
+		
+		public AdminAnnounceInfo(int adminId, String content, int announceId) {
+			this.adminId = adminId;
+			this.content = content;
+			this.announceId = announceId;
+		}
+	}
+	
+	static public ArrayList<AdminAnnounceInfo> getAllAdminAnnounce(DBConnection dbCon) {
+		ArrayList<AdminAnnounceInfo> announceList = new ArrayList<AdminAnnounceInfo>();
+		try {
+			String selectSQL = "SELECT adminId, content, id FROM adminAnnounce ORDER BY id DESC";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()) {
+				int adminId = rs.getInt("adminId");
+				String content = rs.getString("content");
+				int announceId = rs.getInt("id");
+				AdminAnnounceInfo aa = new AdminAnnounceInfo(adminId, content, announceId);
+				announceList.add(aa);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return announceList;
+	}
+	
+	static public boolean registerAnnounce(int adminId, String content, DBConnection dbCon) {		
+		try {
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO adminAnnounce (adminId, content) VALUES (?, ?)");
+			preStmt.setInt(1, adminId);
+			preStmt.setString(2, content);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return false;
+	}
+	
+	static public boolean removeAnnounce(int announceId, DBConnection dbCon) {
+		try {
+			String selectSQL = "DELETE FROM adminAnnounce WHERE id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, announceId);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	
+	static public String getAnnounceContentById(int announceId, DBConnection dbCon) {
+		String content = "";
+		try {
+			String selectSQL = "SELECT content FROM adminAnnounce WHERE id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, announceId);
+			ResultSet rs = preStmt.executeQuery();
+			if(rs.next()) {
+				content = rs.getString("content");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return content;
+	}
+	
 }

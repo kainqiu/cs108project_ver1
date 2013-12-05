@@ -1,2 +1,7 @@
 /build
+<<<<<<< HEAD
 .classpath
+=======
+*.classpath
+*.class
+>>>>>>> c602345245478d9db7b574383809cd675cabb8df

@@ -46,6 +46,7 @@ public class SubmitQuizServlet extends HttpServlet {
 			for(int i=0; i<questions.size(); i++){
 				String currAnswer = request.getParameter(Integer.toString(i));
 				if(currAnswer==null) currAnswer = "";
+
 				boolean curr = questions.get(i).checkAnswer(currAnswer);
 				results.add(curr);
 				answers.add(currAnswer);
@@ -58,6 +59,7 @@ public class SubmitQuizServlet extends HttpServlet {
 			Integer idx = (Integer) session.getAttribute("currIdx");
 			String currAnswer = request.getParameter(Integer.toString(idx));
 			if(currAnswer==null) currAnswer = "";
+
 			boolean curr = questions.get(idx).checkAnswer(currAnswer);
 			results.add(curr);
 			answers.add(currAnswer);

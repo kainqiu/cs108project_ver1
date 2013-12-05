@@ -82,6 +82,13 @@ body {
 	text-align: right;
 }
 
+<<<<<<< HEAD
+=======
+td {
+	padding: 5px;
+}
+
+>>>>>>> c602345245478d9db7b574383809cd675cabb8df
 /*.pop_quiz {
 	color: red;
 	width: 24%;	
