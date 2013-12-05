@@ -1,0 +1,17 @@
+package quizsite;
+
+public class FillIn extends Question{
+	public final String DELIM = "%_" ;
+	public final String blank = "___[BLANK]___";
+	
+	public FillIn(String question, String answer){
+		super(question, answer);
+		String FITB = "";
+		int idx = question.indexOf(DELIM);
+		FITB = question.substring(0, idx) + blank + question.substring(idx, question.length());
+		resetQuestion(FITB);
+	}
+	
+	
+
+}

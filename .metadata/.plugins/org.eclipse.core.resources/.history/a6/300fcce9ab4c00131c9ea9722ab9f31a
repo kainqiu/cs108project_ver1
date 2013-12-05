@@ -1,0 +1,33 @@
+package quizsite;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MultiChoiceTest {
+	private String question = "Where is Stanford?";
+	private String answer = "CA";
+	private String A = "Mexico";
+	private String B = "In my pants";
+
+	@Test
+	public void testMultiChoice() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddMCOption() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetMCOptions() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAllPossAnswers() {
+		fail("Not yet implemented");
+	}
+
+}

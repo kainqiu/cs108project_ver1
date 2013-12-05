@@ -1,0 +1,17 @@
+package quizsite;
+
+public class QResponse extends Question implements QuestionInterface{
+	
+	
+	public QResponse(String question, String answer){
+		super(question, answer);
+	}
+	
+	
+	@Override
+	public boolean checkAnswer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
