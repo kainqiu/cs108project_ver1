@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>New Multiple Choice Question</title>
+</head>
+<body>
+<h1>Create a New Multiple Choice Question</h1>
+
+
+<form action="MCServlet" method="post">
+<p><b>Question: </b><textarea rows = "1" cols = "50" name="question"></textarea> </p> 
+<p><b>Correct Answer: </b><textarea rows = "1" cols = "50" name="answer"></textarea> </p>
+<p><b>Answer Options: </b><br>
+<i>Please type each option on a new line.</i> <br>
+<textarea rows = "4" cols = "50" name="choices"></textarea> </p>
+<input name = "type" type = "hidden" value = "MC"/>
+<input type="submit" value="Create & Continue"/>
+<input type="submit" value="Create & Finish Quiz"/>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+package quizsite;
+
+public class FillIn {
+	public final String DELIM = "%_" ;
+	
+	public FillIn(String quesiton, String answer){
+		
+	}
+
+}

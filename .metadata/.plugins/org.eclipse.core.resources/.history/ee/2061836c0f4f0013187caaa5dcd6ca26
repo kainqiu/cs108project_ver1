@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>New Question-Response Question</title>
+</head>
+<body>
+<h1>Create a New Question-Response</h1>
+<h3>If you have multiple correct answers, please type each answer on a new line.</h3>
+
+<form action="QServlet" method="post">
+<p>Question:<textarea rows = "1" cols = "60" name="question"></textarea> </p> 
+<p>Answer(s): <br> <textarea rows = "4" cols = "50" name="answer"></textarea> </p>
+<input type="submit" value="Create & Continue"/>
+<input type="submit" value="Create & Finish Quiz"/>
+</form>
+
+</body>
+</html>
