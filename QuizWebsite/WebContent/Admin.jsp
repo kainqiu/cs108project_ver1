@@ -27,8 +27,6 @@ ArrayList<Admin.AdminAnnounceInfo> announceList = Admin.getAllAdminAnnounce(con)
 <body>
 
 <p>Hello, admin!</p>
-<p>Currently there are <%= userInfoList.size() %> users in all.</p>
-=======
 
 <p>Currently there are <%= userInfoList.size() %> users in all.</p>
 

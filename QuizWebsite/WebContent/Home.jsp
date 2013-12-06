@@ -34,27 +34,18 @@ ArrayList<Admin.AdminAnnounceInfo> announceList = Admin.getAllAdminAnnounce(con)
 
 <body>
 <p class="logout"><a href="Login.html">Logout</a></p>
-<h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
+<h3>Hello, <%= currUser.getUsername() %>! Welcome to Quizzard Training!</h3>
 <%
 if(User.isUserAdmin(currUser.getId(), con)) {
 	out.println("<p><a href='Admin.jsp'>Go to Admin Page &gt;&gt;</a></p>");
 }
 %>
 
-<p>Search Friend: </p>
-
-<form action="SearchFriendServlet" method="post">
-
-<span><input type="text" name="friend_name"></span>
-
-<button name="search_string" type="submit" value="friend_name">Search</button>
-
-</form>
 
 <br/>
 
 <div class="msg">
-<p class="block_title">Mails Received
+<p class="block_title">Your Inbox
 <% if(numNewMail != 0) {
 	out.println("<span class='new_mail_notice'>(" + numNewMail + " new mails)</span>");
 }
@@ -73,7 +64,7 @@ for(int i = 0; i < numNewMail; i++) {
 	}
 }
 %>
-<a href="AllMails.jsp">Check All Mails &gt;&gt;</a>
+<a href="AllMails.jsp">Check All Mail &gt;&gt;</a>
 </div>
 <br/><br/>
 <div class="msg">
@@ -87,19 +78,21 @@ for(int i = 0; i < announceList.size(); i++) {
 %>
 </table>
 </div>
+<br/>
+<br/>
 
 <div class="msg">
-<p class="block_title"> Quizzes </p>
-<a href="quizzesWebpage.jsp">List of All Quizzes </a>
-</div>
-
-<div class="msg">
-<p class="block_title"> Search for quizzes by tag </p>
+<p class="block_title"> Browse Quizzes </p>
+<a href="quizzesWebpage.jsp">View All Quizzes </a>
 <form action="quizByTag.jsp" method = "post">
-<p>Insert a tag <input type="text" name="tag"> 
-<input type = "submit" value = "Search for this tag!"/></p>
+<p>Browse by tag: <input type="text" name="tag"> 
+<input type = "submit" value = "Search!"/></p>
+<form action="QuizServlet" method = "post">
+<input type="submit" value = "Create New Quiz" />
+</form>
 </form>
 </div>
+
 
 <div class="lists">
 <div class="pop_quiz list_block">
@@ -119,7 +112,7 @@ for(int i = 0; i < recentQuizList.size(); i++) {
 %>
 </div>
 <div class="taken_quiz_activity list_block">
-<p class="block_title">Recently Quizzes Taken</p>
+<p class="block_title">Your Recently Quizzes Taken</p>
 <%
 for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
 	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentTakenQuizByUserList.get(i).id + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
@@ -137,7 +130,12 @@ for(int i = 0; i < recentCreatedByUserList.size(); i++) {
 </div>
 
 <div class="friends_activity">
-<p class="block_title">Friends Activities</p>
+<p class="block_title">Friends' Activity</p>
+<p> 
+<form action="SearchFriendServlet" method="post" style="text-align:right !important;">
+<span>Search Users:<input type="text" name="friend_name"></span>
+<button name="search_string" type="submit" value="friend_name">Search</button>
+</form></p>
 <%
 for(int i = 0; i < friendsAct.size(); i++) {
 	User.Activity f = friendsAct.get(i);
@@ -151,7 +149,7 @@ for(int i = 0; i < friendsAct.size(); i++) {
 </div>
 
 <div class="user_history">
-<p class="block_title">History</p>
+<p class="block_title">Your Quiz-Taking History</p>
 <%
 for(int i = 0; i < histories.size(); i++) {
 	if(i > 10) break;
@@ -160,16 +158,10 @@ for(int i = 0; i < histories.size(); i++) {
 
 }
 %>
-<a href="AllHistories.jsp">Check History &gt;&gt;</a>
+<a href="AllHistories.jsp">Check Full History &gt;&gt;</a>
 </div>
 
-<form action="QuizServlet" method = "post">
-<input type="submit" value = "Create quiz" />
-</form>
 
-<form action="HistoryServlet" method="post">
-<input type="submit" value="Create History"/>
-</form>
 
 <!--<form action="FriendServlet" method="post">
 <input type="submit" value="Create Friend"/>

@@ -7,15 +7,23 @@
 </head>
 <body>
 
-<h1>Welcome to the Quiz Website</h1>
-<p>Please log in :)</p>
-<form action="LoginServlet" method="post">
-<p>User name: <input type="text" name="name" /></p>
-<p>Password: <input type="password" name="pw" /></p>
-<input type="submit" value="Login"/>
-</form>
-<p><a href="Register.html">Register</a></p>
-<p><a href="LoginAdmin.html">Login As Administrator</a></p>
+<div class="login-wrapper">
+		<h1>Welcome to Dr. Young's School of Quizzardry!</h1>
+	<div class="login-right" style="width: 20%; float: left;  padding: 5px; text-align: center;">
 
+		<img src = "dryoung.png"/>
+	</div>
+	<div class="login-left" style="width: 49%; float: left;  padding: 5px;">
+		<br><br><br><h2>Please log in.</h2>
+		<form action="LoginServlet" method="post">
+			<p>Quizzard-name: <input type="text" name="name" /></p>
+			<p>Password: <input type="password" name="pw" /></p>
+			<input type="submit" value="Login"/>
+		</form>
+		<p><a href="Register.html">Register</a></p>
+		<p><a href="LoginAdmin.html">Login As Headmaster</a></p>
+	</div>
+
+</div>
 </body>
 </html>
