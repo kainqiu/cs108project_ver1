@@ -1,0 +1,24 @@
+package quizsite;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class FillInTest {
+
+	@Test
+	public void testFillIn() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCheckAnswer() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetQuestion() {
+		fail("Not yet implemented");
+	}
+
+}
