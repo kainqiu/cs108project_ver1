@@ -29,7 +29,7 @@ public class History {
 	
 	static public boolean createHistory(int userId, int quizId, int score, double elapsedTime, int maxscore, DBConnection dbCon) {
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO histories (userId, quizId, score, elapsedTime, finishAt, maxPossibleScore) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO histories (userId, quizId, score, elapsedTime, finishAt, maxPossibleScore) VALUES (?, ?, ?, ?, ?, ?)");
 
 			preStmt.setInt(1, userId);
 			preStmt.setInt(2, quizId);
