@@ -41,6 +41,18 @@ if(User.isUserAdmin(currUser.getId(), con)) {
 }
 %>
 
+<p>Search Friend: </p>
+
+<form action="SearchFriendServlet" method="post">
+
+<span><input type="text" name="friend_name"></span>
+
+<button name="search_string" type="submit" value="friend_name">Search</button>
+
+</form>
+
+<br/>
+
 <div class="msg">
 <p class="block_title">Mails Received
 <% if(numNewMail != 0) {

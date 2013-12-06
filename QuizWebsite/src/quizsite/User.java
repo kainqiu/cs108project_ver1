@@ -12,9 +12,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class User {
-	
+
 	public static int count = 0;
-	
+
 	private int id;
 	private String username;
 	private String password;
@@ -26,9 +26,9 @@ public class User {
 	private ArrayList<Mail> mailReceived;
 	private ArrayList<History> history;
 	private boolean hasNewMail;
-	
+
 	DBConnection dbCon;
-	
+
 	public User(String username, DBConnection dbCon) {
 		this.username = username;
 		try {
@@ -44,16 +44,16 @@ public class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-//		this.friends = new ArrayList<User>();
-//		this.quizCreated = new ArrayList<Quiz>();
-//		this.quizTaken = new ArrayList<Quiz>();
-//		this.mailReceived = new ArrayList<Mail>();
-//		this.hasNewMail = false;
-		
+		//		this.friends = new ArrayList<User>();
+		//		this.quizCreated = new ArrayList<Quiz>();
+		//		this.quizTaken = new ArrayList<Quiz>();
+		//		this.mailReceived = new ArrayList<Mail>();
+		//		this.hasNewMail = false;
+
 		this.dbCon = dbCon;
 	}
-	
-	
+
+
 	public User(int userId, DBConnection dbCon) {
 		this.id = userId;
 		try {
@@ -71,7 +71,7 @@ public class User {
 		} 
 		this.dbCon = dbCon;
 	}
-	
+
 	static public boolean registerUser(String username, String pw, DBConnection dbCon) {
 		//User.count++;
 		//int id = User.count;
@@ -97,7 +97,7 @@ public class User {
 		} 
 		return false;
 	}
-	
+
 	static public boolean existUser(String username, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT username FROM users WHERE username = ?";
@@ -115,7 +115,7 @@ public class User {
 		} 
 		return false;
 	}
-	
+
 	static public boolean Login(String username, String pw, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT password, salt FROM users WHERE username = ?";
@@ -137,7 +137,7 @@ public class User {
 		System.out.println("login failed");
 		return false;
 	}
-	
+
 	public static String hexToString(byte[] bytes) {
 		StringBuffer buff = new StringBuffer();
 		for (int i=0; i<bytes.length; i++) {
@@ -148,7 +148,7 @@ public class User {
 		}
 		return buff.toString();
 	}
-	
+
 	public static String generateHash(String pw) {	
 		byte[] byteData = null;
 		try {
@@ -160,15 +160,15 @@ public class User {
 		}
 		return hexToString(byteData);
 	}
-	
+
 	public int getId() {
 		return this.id;
 	}
-	
+
 	public String getUsername() {
 		return this.username;
 	}
-	
+
 	public ArrayList<Mail> getMails() {
 		this.mailReceived = new ArrayList<Mail>();
 		try {
@@ -188,7 +188,7 @@ public class User {
 		} 
 		return this.mailReceived;
 	}
-	
+
 	public ArrayList<History> getHistories() {
 		this.history = new ArrayList<History>();
 		try {
@@ -211,7 +211,7 @@ public class User {
 		} 
 		return this.history;
 	}
-	
+
 	public ArrayList<User> getFriendsList() {
 		this.friends = new ArrayList<User>();
 		ArrayList<Integer> friendsIdList = new ArrayList<Integer>();
@@ -231,7 +231,7 @@ public class User {
 		} 	
 		return this.friends;
 	}
-	
+
 	static public class Activity {
 		public String username;
 		public int userId;
@@ -239,7 +239,7 @@ public class User {
 		public int quizId;
 		public boolean isCreate;
 		public java.sql.Timestamp timestamp;
-		
+
 		public Activity(String username, int userId, String quizTitle, int quizId, boolean isCreate, java.sql.Timestamp timestamp) {
 			this.username = username;
 			this.userId = userId;
@@ -249,7 +249,7 @@ public class User {
 			this.timestamp = timestamp;
 		}
 	}
-	
+
 	public ArrayList<Activity> getRecentFriendsActivities() {
 		ArrayList<Activity> friendsAct = new ArrayList<Activity>();
 		ArrayList<User> friends = getFriendsList();
@@ -268,7 +268,7 @@ public class User {
 					Activity act = new Activity(u.getUsername(), u.getId(), Quiz.getTitleById(rs.getInt("quizId"), dbCon), rs.getInt("quizId"), false, rs.getTimestamp("finishAt"));
 					friendsAct.add(act);
 				}
-				
+
 				// query for quiz created
 				selectSQL = "SELECT id, title, createdAt FROM quizzes WHERE creatorId = ? AND ADDTIME(createdAt, '20 0:0:0.000000') > ? ORDER BY createdAt DESC LIMIT 5";
 				preStmt = dbCon.getConnection().prepareStatement(selectSQL);
@@ -286,7 +286,7 @@ public class User {
 		} 
 		return friendsAct;
 	}
-	
+
 	static public String getUsernameById(int id, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT username FROM users WHERE id = ?";
@@ -302,7 +302,7 @@ public class User {
 		} 
 		return null;
 	}
-	
+
 	static public int getNumNewMailById(int id, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT numNewMail FROM users WHERE id = ?";
@@ -318,7 +318,7 @@ public class User {
 		} 
 		return 0;
 	}
-	
+
 	static public boolean incrementNumNewMailByOne(int id, DBConnection dbCon) {
 		try {
 			int currNumNewMail = User.getNumNewMailById(id, dbCon);
@@ -334,7 +334,7 @@ public class User {
 			return false;
 		} 
 	}
-	
+
 	static public boolean setNumNewMailToZeroById(int id, DBConnection dbCon) {
 		try {
 			String updateSQL = "UPDATE users SET numNewMail=0 WHERE id = ?";
@@ -347,7 +347,7 @@ public class User {
 			return false;
 		}
 	}
-	
+
 	static public int getNumQuizTakenByUserId(int userId, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT COUNT(*) AS rowCount FROM histories WHERE userId = ?";
@@ -363,7 +363,7 @@ public class User {
 		} 
 		return 0;
 	}
-	
+
 
 	static public boolean isUserAdmin(int userId, DBConnection dbCon) {
 		try {
@@ -380,4 +380,35 @@ public class User {
 		} 
 		return false;
 	}
+
+	static public class UserInfo {
+		public int userId;
+		public String username;
+		public UserInfo(int userId, String username) {
+			this.userId = userId;
+			this.username = username;
+		}
+	}
+
+
+	static public ArrayList<UserInfo> getAllUsersWithString(String str, DBConnection dbCon) {
+		ArrayList<UserInfo> userList = new ArrayList<UserInfo>();
+		try {
+			String selectSQL = "SELECT id, username FROM users ORDER BY id DESC";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String username = rs.getString("username");
+				if(username.toLowerCase().contains(str.toLowerCase())) {
+					UserInfo ui = new UserInfo(id, username);
+					userList.add(ui);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return userList;
+	}
+
 }
