@@ -35,6 +35,7 @@ public class Quiz {
 
 	Set<String> setOfTags = new HashSet<String>();
 	private String category;
+
 	private static java.sql.Timestamp param;
 	ArrayList<Question> questions = new ArrayList<Question>();
 
@@ -58,6 +59,7 @@ public class Quiz {
 		return quizID;
 	}
 
+
 	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description, boolean random, boolean pages, boolean correction, String category) {
 
 		Date createdAt = new Date();
@@ -69,6 +71,7 @@ public class Quiz {
 		//System.out.println("userID: "  + userID + " timeCreated: " + param +  " title: " + title + " description: " + description);
 
 		try {
+
 			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken, randomQuestions, onePage, immediateCorrection, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			preStmt.setInt(1, userID);
 			preStmt.setTimestamp(2, param);
@@ -82,6 +85,7 @@ public class Quiz {
 
 			preStmt.executeUpdate();
 			System.out.println("in registerQuiz");
+
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -381,4 +385,5 @@ public class Quiz {
 		return pastRec;
 	}
 	
+
 }

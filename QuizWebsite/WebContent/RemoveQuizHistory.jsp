@@ -15,6 +15,9 @@ int quizId = Integer.parseInt(request.getParameter("id"));
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" href="/QuizWebsite/Home.css" type="text/css">
+
 <title>Remove Quiz History</title>
 </head>
 <body>

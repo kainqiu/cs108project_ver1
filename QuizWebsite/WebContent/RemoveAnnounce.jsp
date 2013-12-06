@@ -11,20 +11,19 @@ if(con == null) {
 	session.setAttribute("connection", con);
 }
 
-int quizId = Integer.parseInt(request.getParameter("id"));
+int announceId = Integer.parseInt(request.getParameter("id"));
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
 <link rel="stylesheet" href="/QuizWebsite/Home.css" type="text/css">
-
-<title>Remove Quiz</title>
+<title>Remove Administrator</title>
 </head>
 <body>
-<p>Are you sure to remove the quiz "<%= Quiz.getTitleById(quizId, con) %>" from the database?</p>
-<form action="RemoveQuizServlet" method="post">
+<p>Are you sure to remove the announcement?</p>
+<p><%= Admin.getAnnounceContentById(announceId, con) %></p>
+<form action="RemoveAnnounceServlet" method="post">
 <input type="submit" value="Remove"/>
-<input name="quizIdToRemove" type="hidden" value="<%= quizId %>" />
+<input name="announceIdToRemove" type="hidden" value="<%= announceId %>" />
 </form>
 <br />
 <a href="Admin.jsp">&lt;&lt; Back</a>

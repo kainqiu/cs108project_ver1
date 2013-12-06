@@ -14,6 +14,10 @@ if(con == null) {
 
 ArrayList<Admin.UserInfo> userInfoList = Admin.getAllUsers(con);
 ArrayList<Admin.QuizInfo> quizInfoList = Admin.getAllQuizzes(con);
+
+
+ArrayList<Admin.AdminAnnounceInfo> announceList = Admin.getAllAdminAnnounce(con);
+
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -24,6 +28,31 @@ ArrayList<Admin.QuizInfo> quizInfoList = Admin.getAllQuizzes(con);
 
 <p>Hello, admin!</p>
 <p>Currently there are <%= userInfoList.size() %> users in all.</p>
+=======
+
+<p>Currently there are <%= userInfoList.size() %> users in all.</p>
+
+<p><a href="Home.jsp">&lt;&lt; Home</a></p>
+<p>Currently there are <%= userInfoList.size() %> users and <%= quizInfoList.size() %> quizzes in all.</p>
+<p>Create a new announcement:</p>
+<form action="AnnounceServlet" method="post">
+<p><textarea cols="40" rows="5" name="announceContent" placeholder="Write your announcement here..."></textarea></p>
+<button name="reqType" type="submit" value="note">Submit</button>
+</form>
+<br/>
+
+<div class="friends_activity">
+<p class="block_title">All Announcements</p>
+<table>
+<%
+for(int i = 0; i < announceList.size(); i++) {
+	Admin.AdminAnnounceInfo aai = announceList.get(i);
+	out.println("<tr><td class='each_history'><a href='User.jsp?id=" + aai.adminId + "'>" + User.getUsernameById(aai.adminId, con) + "</a></td><td> - " + aai.content + "</td><td><a href='RemoveAnnounce.jsp?id=" + aai.announceId + "'>Remove</a></td></tr>");
+}
+%>
+</table>
+</div>
+
 <div class="friends_activity">
 <p class="block_title">All Users</p>
 <table>
@@ -31,6 +60,12 @@ ArrayList<Admin.QuizInfo> quizInfoList = Admin.getAllQuizzes(con);
 for(int i = 0; i < userInfoList.size(); i++) {
 	Admin.UserInfo ui = userInfoList.get(i);
 	out.println("<tr><td class='each_history'><a href='User.jsp?id=" + ui.userId + "'>" + ui.username + "</a></td><td> took " + User.getNumQuizTakenByUserId(ui.userId, con) + " quizzes</td><td><a href='RemoveUser.jsp?id=" + ui.userId + "'>Remove</a></td></tr>");
+
+	if(User.isUserAdmin(ui.userId, con)) {
+		out.println("<tr><td class='each_history'><a href='User.jsp?id=" + ui.userId + "'>" + ui.username + "</a></td><td> took " + User.getNumQuizTakenByUserId(ui.userId, con) + " quizzes</td><td><a href='RemoveUser.jsp?id=" + ui.userId + "'>Remove User</a></td><td><a href='RemoveAdmin.jsp?id=" + ui.userId + "'>Remove Admin</a></td></tr>");
+	} else {
+		out.println("<tr><td class='each_history'><a href='User.jsp?id=" + ui.userId + "'>" + ui.username + "</a></td><td> took " + User.getNumQuizTakenByUserId(ui.userId, con) + " quizzes</td><td><a href='RemoveUser.jsp?id=" + ui.userId + "'>Remove User</a></td><td><a href='PromoteUser.jsp?id=" + ui.userId + "'>Promote to Admin</a></td></tr>");
+	}
 }
 %>
 </table>

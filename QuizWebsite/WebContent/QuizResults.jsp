@@ -19,6 +19,7 @@
 Quiz currQuiz = (Quiz)session.getAttribute("currQuiz");
 ArrayList<String> answers = (ArrayList<String>) session.getAttribute("answers");
 ArrayList<Question> questions = currQuiz.setOfQuestions();
+
 ArrayList<Boolean> results = (ArrayList<Boolean>) session.getAttribute("results");
 int score = 0;
 for(int i=0; i<answers.size(); i++){
@@ -46,11 +47,13 @@ double elapsed = (date.getTime() - start)/1000.0;
 
 out.print("</ol> <h3>Final Score: " + score + "/" + questions.size() + ", Time Elapsed: " + elapsed + " seconds </h3>");
 
+
 //register stuff in database
 DBConnection con = (DBConnection) session.getAttribute("connection");
 if(!History.createHistory(((User)session.getAttribute("user")).getId(), currQuiz.getID(), score, elapsed, questions.size(), con)) System.out.println("error registering quiz score");
 //if(!History.createHistory(((User) session.getAttribute("user")).getId()	, currQuiz.getID(), score, elapsed, questions.size(), con)) System.out.println("registering score didn't work");
 if(!Quiz.incrementTimesTaken(currQuiz.getID(), con)) System.out.println("Error incrementing times taken");
+
 session.setAttribute("currQuiz", null);
 session.setAttribute("answers", null);
 session.setAttribute("results", null);

@@ -1,8 +1,8 @@
 package quizsite;
 
 import java.io.IOException;
-import java.util.Date;
-import java.sql.Time;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class HistoryServlet
+ * Servlet implementation class PromoteUserServlet
  */
-@WebServlet("/HistoryServlet")
-public class HistoryServlet extends HttpServlet {
+@WebServlet("/PromoteUserServlet")
+public class PromoteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public HistoryServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PromoteUserServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,20 +42,15 @@ public class HistoryServlet extends HttpServlet {
 			con = new DBConnection();
 			session.setAttribute("connection", con);
 		}
-		User currUser = (User) session.getAttribute("user");
-
-		double elapsedTime = 1000;
-		//java.util.Date finishAt = new java.util.Date();
-
-//		History.createHistory(1, 29, 70, elapsedTime, con);
-//		History.createHistory(1, 29, 60, elapsedTime, con);
-//		History.createHistory(1, 29, 40, elapsedTime, con);
-
-
-//		History.createHistory(1, 29, 70, elapsedTime, con);
-//		History.createHistory(1, 29, 60, elapsedTime, con);
-//		History.createHistory(1, 29, 40, elapsedTime, con);
-
+		
+		int userIdToPromote = Integer.parseInt(request.getParameter("userIdToPromote"));
+		if(Admin.promoteUser(userIdToPromote, con)) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("Admin.jsp");
+			dispatch.forward(request, response);
+		} else {
+			RequestDispatcher dispatch = request.getRequestDispatcher("Error.html");
+			dispatch.forward(request, response);
+		}
 	}
 
 }

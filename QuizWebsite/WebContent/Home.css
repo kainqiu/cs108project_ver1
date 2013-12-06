@@ -82,11 +82,21 @@ body {
 	text-align: right;
 }
 
+<<<<<<< HEAD
 .search_tag {
 	width: 100%;
 	float: left;
 }
 
+=======
+<<<<<<< HEAD
+=======
+td {
+	padding: 5px;
+}
+
+>>>>>>> c602345245478d9db7b574383809cd675cabb8df
+>>>>>>> 29b41005936e58058d5f01806bda89b775ca6197
 /*.pop_quiz {
 	color: red;
 	width: 24%;	

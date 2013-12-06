@@ -65,7 +65,8 @@ public class QuizDatabaseServlet extends HttpServlet {
 		else{
 			quiz.setFinalCorrectionTrue();
 		}
-		
+
+
 		DBConnection con = (DBConnection) session.getAttribute("connection");
 
 		String title = quiz.getQuizTitle();
@@ -81,6 +82,7 @@ public class QuizDatabaseServlet extends HttpServlet {
 		Quiz.registerQuiz(con, currUser, title, description, random, pages, correction, category);
 
 		String selectSQL = "SELECT id FROM quizzes ORDER BY createdAt DESC";
+
 		PreparedStatement preStmt;
 		try {
 			preStmt = con.getConnection().prepareStatement(selectSQL);
